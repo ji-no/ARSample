@@ -31,6 +31,8 @@ extension ARViewController {
         sceneView.addGestureRecognizer(tapGestureRecognizer)
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onSwipeScene(_:)))
         sceneView.addGestureRecognizer(panGestureRecognizer)
+        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(onRotationScene(_:)))
+        sceneView.addGestureRecognizer(rotationGestureRecognizer)
     }
 
 }
@@ -84,6 +86,12 @@ extension ARViewController {
             break
         }
     }
+    
+    @objc private func onRotationScene(_ sender: UIRotationGestureRecognizer) {
+        rotateObject(selectedObject, rotation: Float(sender.rotation))
+        sender.rotation = 0
+    }
+
 
     private func selectObject(_ objectNode: ObjectNode?) {
         guard let objectNode = objectNode else { return }
@@ -103,6 +111,14 @@ extension ARViewController {
 
         objectNode.position.x = newPosition.x
         objectNode.position.z = newPosition.z
+    }
+    
+    private func rotateObject(_ objectNode: ObjectNode?, rotation: Float) {
+        guard let objectNode = objectNode else { return }
+
+        let currentAngles = objectNode.eulerAngles
+        let newEulerAngles = SCNVector3(currentAngles.x, currentAngles.y - rotation, currentAngles.z)
+        objectNode.eulerAngles = newEulerAngles
     }
     
 
