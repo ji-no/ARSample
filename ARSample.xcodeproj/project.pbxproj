@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3B0088D427B006DB000C4ED8 /* SceneKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */; };
+		3B0088D627B012F2000C4ED8 /* SelectObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */; };
+		3B0088D827B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0088D727B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift */; };
+		3B0088DC27B01698000C4ED8 /* ChairSwan.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088D927B01698000C4ED8 /* ChairSwan.usdz */; };
+		3B0088DD27B01698000C4ED8 /* Teapot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088DA27B01698000C4ED8 /* Teapot.usdz */; };
+		3B0088DE27B01698000C4ED8 /* ToyBiplane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */; };
 		3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381E927AE772D008DDEA2 /* AppDelegate.swift */; };
 		3BD381EC27AE772D008DDEA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */; };
 		3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381ED27AE772D008DDEA2 /* ARViewController.swift */; };
@@ -22,6 +27,11 @@
 
 /* Begin PBXFileReference section */
 		3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitUtils.swift; sourceTree = "<group>"; };
+		3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectObjectViewController.swift; sourceTree = "<group>"; };
+		3B0088D727B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectObjectCollectionViewCell.swift; sourceTree = "<group>"; };
+		3B0088D927B01698000C4ED8 /* ChairSwan.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChairSwan.usdz; sourceTree = "<group>"; };
+		3B0088DA27B01698000C4ED8 /* Teapot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Teapot.usdz; sourceTree = "<group>"; };
+		3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ToyBiplane.usdz; sourceTree = "<group>"; };
 		3BD381E627AE772D008DDEA2 /* ARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD381E927AE772D008DDEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +84,8 @@
 				3BD3820127AEA276008DDEA2 /* ObjectNode.swift */,
 				3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */,
 				3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */,
+				3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */,
+				3B0088D727B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift */,
 				3BD381EF27AE772D008DDEA2 /* Main.storyboard */,
 				3BD381F227AE772E008DDEA2 /* Assets.xcassets */,
 				3BD381F427AE772E008DDEA2 /* LaunchScreen.storyboard */,
@@ -86,6 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				3BD3820427AEA461008DDEA2 /* AirForce.usdz */,
+				3B0088D927B01698000C4ED8 /* ChairSwan.usdz */,
+				3B0088DA27B01698000C4ED8 /* Teapot.usdz */,
+				3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */,
 			);
 			path = usdz;
 			sourceTree = "<group>";
@@ -148,10 +163,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B0088DD27B01698000C4ED8 /* Teapot.usdz in Resources */,
 				3BD3820527AEA461008DDEA2 /* AirForce.usdz in Resources */,
 				3BD381F627AE772E008DDEA2 /* LaunchScreen.storyboard in Resources */,
 				3BD381F327AE772E008DDEA2 /* Assets.xcassets in Resources */,
+				3B0088DC27B01698000C4ED8 /* ChairSwan.usdz in Resources */,
 				3BD381F127AE772D008DDEA2 /* Main.storyboard in Resources */,
+				3B0088DE27B01698000C4ED8 /* ToyBiplane.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,9 +182,11 @@
 			files = (
 				3BD3820027AEA0DD008DDEA2 /* Extensions.swift in Sources */,
 				3BD381FE27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift in Sources */,
+				3B0088D627B012F2000C4ED8 /* SelectObjectViewController.swift in Sources */,
 				3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */,
 				3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */,
 				3BD3820227AEA276008DDEA2 /* ObjectNode.swift in Sources */,
+				3B0088D827B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift in Sources */,
 				3B0088D427B006DB000C4ED8 /* SceneKitUtils.swift in Sources */,
 				3BD381EC27AE772D008DDEA2 /* SceneDelegate.swift in Sources */,
 			);

@@ -11,8 +11,18 @@ import SceneKit
 class ObjectNode: SCNNode {
 
     // https://developer.apple.com/jp/augmented-reality/quick-look/
-    enum ObjectType {
-        case airForce
+    enum ObjectType: String {
+        case AirForce
+        case ChairSwan
+        case Teapot
+        case ToyBiplane
+        
+        static var all: [ObjectType] = [
+            .AirForce,
+            .ChairSwan,
+            .Teapot,
+            .ToyBiplane
+        ]
     }
     
     enum State {
@@ -23,22 +33,47 @@ class ObjectNode: SCNNode {
     private var state: State = .idle
     private var startPositionY: Float = 0.0
 
-    init(type: ObjectType = .airForce) {
+    init(type: ObjectType = .AirForce, position: SCNVector3) {
         super.init()
         
         var scale = 1.0
         switch type {
-        case .airForce:
-            loadUsdz(name: "AirForce")
+        case .AirForce:
+            loadUsdz(name: type.rawValue)
+            scale = 0.01
+        case .ChairSwan:
+            loadUsdz(name: type.rawValue)
+            scale = 0.003
+        case .Teapot:
+            loadUsdz(name: type.rawValue)
+            scale = 0.01
+        case .ToyBiplane:
+            loadUsdz(name: type.rawValue)
             scale = 0.01
         }
         self.scale = SCNVector3(scale, scale, scale)
+        self.name = type.rawValue
+        self.spawn(position: position)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func spawn(position: SCNVector3) {
+        startPositionY = position.y
+        self.position = position
+        self.position.y += 0.1
+        state = .selected
+        
+        let toScale = CGFloat(self.scale.x)
+        self.scale = SCNVector3(0, 0, 0)
+        let action = SCNAction.scale(to: toScale, duration: 0.2)
+        self.runAction(action, forKey: nil) { [weak self] in
+            self?.floatingAction()
+        }
+    }
+
     func select() {
         guard state == .idle else { return }
 

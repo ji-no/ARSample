@@ -18,6 +18,19 @@ extension ARViewController {
         runSession()
         setUpGesture()
     }
+    
+    func spawn(_ type: ObjectNode.ObjectType) {
+        let location = CGPoint(x: sceneView.frame.width / 2, y: sceneView.frame.height / 2)
+
+        if let position = sceneView.realWorldVector(for: location) {
+            let objectNode = ObjectNode(type: type, position: position)
+            DispatchQueue.main.async(execute: {
+                self.sceneView.scene.rootNode.addChildNode(objectNode)
+                self.selectObject(objectNode)
+            })
+        }
+
+    }
 
     private func runSession() {
         let configuration = ARWorldTrackingConfiguration()
@@ -51,15 +64,6 @@ extension ARViewController {
             selectedObject?.cancel()
             selectedObject = nil
             return
-        }
-
-        if let position = sceneView.realWorldVector(for: location) {
-            let objectNode = ObjectNode(type: .airForce)
-            objectNode.name = "object"
-            objectNode.position = position
-            DispatchQueue.main.async(execute: {
-                self.sceneView.scene.rootNode.addChildNode(objectNode)
-            })
         }
     }
 
