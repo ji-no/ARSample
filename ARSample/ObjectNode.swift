@@ -73,6 +73,10 @@ class ObjectNode: SCNNode {
             self?.floatingAction()
         }
     }
+    
+    func isSelected() -> Bool {
+        return state == .selected
+    }
 
     func select() {
         guard state == .idle else { return }
@@ -87,6 +91,14 @@ class ObjectNode: SCNNode {
         state = .canceling
         removeAllActions()
         falldownAction()
+    }
+    
+    func removeObject() {
+        removeAllActions()
+        let action = SCNAction.scale(to: 0, duration: 0.2)
+        self.runAction(action, forKey: nil) { [weak self] in
+            self?.removeFromParentNode()
+        }
     }
     
     private func riseAction() {

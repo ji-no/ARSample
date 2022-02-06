@@ -11,6 +11,9 @@ import ARKit
 class ARViewController: UIViewController {
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var objectNameLabel: UILabel!
+    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var selectButton: UIButton!
     
     var selectedObject: ObjectNode?
     var swipeStartObjectPosition: SCNVector3?
@@ -22,5 +25,12 @@ class ARViewController: UIViewController {
         setUpScene()
     }
 
-}
+    @IBAction func onTapRemoveButton(_ sender: Any) {
+        removeObject()
+    }
 
+    @IBAction func onTapSelectButton(_ sender: Any) {
+        selectObject(selectedObject)
+    }
+
+}

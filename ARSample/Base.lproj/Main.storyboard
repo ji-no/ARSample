@@ -26,6 +26,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyH-ey-K2Z">
+                                <rect key="frame" x="0.0" y="762" width="100" height="100"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="AVH-qn-Y8S"/>
+                                    <constraint firstAttribute="height" constant="100" id="Kou-X1-8q6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Remove"/>
+                                <connections>
+                                    <action selector="onTapRemoveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YDf-Xf-g5G"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLk-Oa-pHe">
                                 <rect key="frame" x="314" y="762" width="100" height="100"/>
                                 <constraints>
@@ -38,6 +53,27 @@
                                     <segue destination="ejB-eL-lFT" kind="presentation" id="k2G-9f-oFU"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Object Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qK-zE-guo">
+                                <rect key="frame" x="157" y="741.5" width="100" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsg-q1-5WX">
+                                <rect key="frame" x="157" y="762" width="100" height="100"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="UaK-Um-shP"/>
+                                    <constraint firstAttribute="height" constant="100" id="bAi-Me-mKL"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Select"/>
+                                <connections>
+                                    <action selector="onTapSelectButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LMs-nZ-cyL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -45,16 +81,25 @@
                             <constraint firstAttribute="bottom" secondItem="Obt-c2-p0G" secondAttribute="bottom" id="AKo-kr-IZM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aLk-Oa-pHe" secondAttribute="bottom" id="AdO-b3-566"/>
                             <constraint firstItem="Obt-c2-p0G" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="IcF-O1-kol"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KyH-ey-K2Z" secondAttribute="bottom" id="OKv-Id-gpJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aLk-Oa-pHe" secondAttribute="trailing" id="RkG-qZ-OLC"/>
+                            <constraint firstItem="nsg-q1-5WX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XXU-uI-bVs"/>
+                            <constraint firstItem="8qK-zE-guo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fUm-si-bRh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nsg-q1-5WX" secondAttribute="bottom" id="g8g-zG-cLs"/>
                             <constraint firstAttribute="trailing" secondItem="Obt-c2-p0G" secondAttribute="trailing" id="hlx-xU-rPL"/>
                             <constraint firstItem="OGQ-hA-zFJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jfK-lo-O5k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OGQ-hA-zFJ" secondAttribute="trailing" id="oFO-10-gmO"/>
+                            <constraint firstItem="nsg-q1-5WX" firstAttribute="top" secondItem="8qK-zE-guo" secondAttribute="bottom" id="qGQ-jL-Z1e"/>
                             <constraint firstItem="OGQ-hA-zFJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="t74-VT-iqu"/>
                             <constraint firstItem="Obt-c2-p0G" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ud4-lw-XZe"/>
+                            <constraint firstItem="KyH-ey-K2Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yGI-st-Qxf"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="objectNameLabel" destination="8qK-zE-guo" id="ff1-gp-rM9"/>
+                        <outlet property="removeButton" destination="KyH-ey-K2Z" id="Nx0-aQ-7Fj"/>
                         <outlet property="sceneView" destination="Obt-c2-p0G" id="4Ua-kC-tij"/>
+                        <outlet property="selectButton" destination="nsg-q1-5WX" id="lyg-ob-rk7"/>
                         <outlet property="statusLabel" destination="OGQ-hA-zFJ" id="tYi-l5-f7N"/>
                     </connections>
                 </viewController>

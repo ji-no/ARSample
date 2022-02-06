@@ -32,6 +32,39 @@ extension ARViewController {
 
     }
 
+    func removeObject() {
+        if let objectNode = selectedObject {
+            selectObject(nil)
+            objectNode.removeObject()
+        }
+    }
+
+    func selectObject(_ objectNode: ObjectNode?) {
+        if selectedObject == objectNode {
+            if selectedObject?.isSelected() == true {
+                selectedObject?.cancel()
+            } else {
+                selectedObject?.select()
+            }
+        } else {
+            selectedObject?.cancel()
+            objectNode?.select()
+            selectedObject = objectNode
+        }
+        
+        if let selectedObject = self.selectedObject {
+            objectNameLabel.isHidden = false
+            objectNameLabel.text = selectedObject.name
+            removeButton.isHidden = false
+            selectButton.isHidden = false
+            selectButton.setTitle(selectedObject.isSelected() ? "deselect" : "select", for: .normal)
+        } else {
+            objectNameLabel.isHidden = true
+            removeButton.isHidden = true
+            selectButton.isHidden = true
+        }
+    }
+
     private func runSession() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -56,25 +89,19 @@ extension ARViewController {
 
     @objc private func onTapScene(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: sceneView)
-        let objectNode = hitObjectNode(location: location)
-        if let objectNode = objectNode {
-            selectObject(objectNode)
-            return
-        } else if selectedObject != nil {
-            selectedObject?.cancel()
-            selectedObject = nil
-            return
-        }
+        selectObject(hitObjectNode(location: location))
     }
 
     @objc private func onSwipeScene(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             let location = sender.location(in: sceneView)
-            let objectNode = hitObjectNode(location: location)
-            selectObject(objectNode)
+            if let objectNode = hitObjectNode(location: location) {
+                selectObject(objectNode)
+            }
             if let position = sceneView.realWorldVector(for: location) {
                 if let selectedObject = selectedObject {
+                    selectedObject.select()
                     swipeStartPosition = position
                     swipeStartObjectPosition = selectedObject.position
                 }
@@ -92,18 +119,9 @@ extension ARViewController {
     }
     
     @objc private func onRotationScene(_ sender: UIRotationGestureRecognizer) {
+        selectedObject?.select()
         rotateObject(selectedObject, rotation: Float(sender.rotation))
         sender.rotation = 0
-    }
-
-
-    private func selectObject(_ objectNode: ObjectNode?) {
-        guard let objectNode = objectNode else { return }
-        guard selectedObject != objectNode else { return }
-        
-        selectedObject?.cancel()
-        objectNode.select()
-        selectedObject = objectNode
     }
     
     private func translateObject(_ objectNode: ObjectNode?, position: SCNVector3) {
