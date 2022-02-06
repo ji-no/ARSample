@@ -29,6 +29,8 @@ extension ARViewController {
     private func setUpGesture() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapScene(_:)))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onSwipeScene(_:)))
+        sceneView.addGestureRecognizer(panGestureRecognizer)
     }
 
 }
@@ -38,33 +40,78 @@ extension ARViewController {
 extension ARViewController {
 
     @objc private func onTapScene(_ sender: UITapGestureRecognizer) {
-        let point = sender.location(in: sceneView)
-
-        let results = sceneView.hitTest(point, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
-        let objectNode = results
-            .compactMap { $0.node.asObjectNode() }
-            .first
+        let location = sender.location(in: sceneView)
+        let objectNode = hitObjectNode(location: location)
         if let objectNode = objectNode {
-            objectNode.tap()
+            selectObject(objectNode)
+            return
+        } else if selectedObject != nil {
+            selectedObject?.cancel()
+            selectedObject = nil
             return
         }
 
-        if let raycast = sceneView.raycastQuery(from: point,
-                                                allowing: .estimatedPlane,
-                                                alignment: .any) {
-            if let result = sceneView.session.raycast(raycast).first {
-                let transform = result.worldTransform
-                let thirdColumn = transform.columns.3
-                
-                let objectNode = ObjectNode(type: .airForce)
-                objectNode.name = "object"
-                objectNode.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
-                DispatchQueue.main.async(execute: {
-                    self.sceneView.scene.rootNode.addChildNode(objectNode)
-                })
-            }
+        if let position = sceneView.realWorldVector(for: location) {
+            let objectNode = ObjectNode(type: .airForce)
+            objectNode.name = "object"
+            objectNode.position = position
+            DispatchQueue.main.async(execute: {
+                self.sceneView.scene.rootNode.addChildNode(objectNode)
+            })
         }
     }
+
+    @objc private func onSwipeScene(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            let location = sender.location(in: sceneView)
+            let objectNode = hitObjectNode(location: location)
+            selectObject(objectNode)
+            if let position = sceneView.realWorldVector(for: location) {
+                if let selectedObject = selectedObject {
+                    swipeStartPosition = position
+                    swipeStartObjectPosition = selectedObject.position
+                }
+            }
+
+        case .changed:
+            let location = sender.location(in: sceneView)
+            if let position = sceneView.realWorldVector(for: location) {
+                translateObject(selectedObject, position: position)
+            }
+
+        default:
+            break
+        }
+    }
+
+    private func selectObject(_ objectNode: ObjectNode?) {
+        guard let objectNode = objectNode else { return }
+        guard selectedObject != objectNode else { return }
+        
+        selectedObject?.cancel()
+        objectNode.select()
+        selectedObject = objectNode
+    }
+    
+    private func translateObject(_ objectNode: ObjectNode?, position: SCNVector3) {
+        guard let objectNode = objectNode else { return }
+        guard let swipeStartPosition = self.swipeStartPosition else { return }
+        guard let swipeStartObjectPosition = self.swipeStartObjectPosition else { return }
+        
+        let newPosition = swipeStartObjectPosition + position - swipeStartPosition
+
+        objectNode.position.x = newPosition.x
+        objectNode.position.z = newPosition.z
+    }
+    
+
+    private func hitObjectNode(location: CGPoint) -> ObjectNode? {
+        let results = sceneView.hitTest(location, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
+        return results
+            .compactMap { $0.node.asObjectNode() }
+            .first
+   }
 }
 
 

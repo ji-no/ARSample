@@ -20,9 +20,9 @@ class ObjectNode: SCNNode {
         case selected
         case canceling
     }
-    var state: State = .idle
-    var startPositionY: Float = 0.0
-    
+    private var state: State = .idle
+    private var startPositionY: Float = 0.0
+
     init(type: ObjectType = .airForce) {
         super.init()
         
@@ -39,25 +39,16 @@ class ObjectNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func tap() {
-        switch state {
-        case .idle:
-            select()
+    func select() {
+        guard state == .idle else { return }
 
-        case .selected:
-            cancel()
-
-        case .canceling:
-            break
-        }
-    }
-    
-    private func select() {
         state = .selected
         riseAction()
     }
     
-    private func cancel() {
+    func cancel() {
+        guard state == .selected else { return }
+
         state = .canceling
         removeAllActions()
         falldownAction()

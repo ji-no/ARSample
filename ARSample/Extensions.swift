@@ -8,6 +8,7 @@
 
 import ARKit
 
+// MARK: - SCNView Extensions
 extension SCNView {
     
     private func enableEnvironmentMapWithIntensity(_ intensity: CGFloat) {
@@ -26,8 +27,26 @@ extension SCNView {
             self.enableEnvironmentMapWithIntensity(intensity)
         })
     }
+
 }
 
+// MARK: - ARSCNView Extensions
+extension ARSCNView {
+    
+    func realWorldVector(for location: CGPoint) -> SCNVector3? {
+        if let raycast = raycastQuery(from: location,
+                                      allowing: .estimatedPlane,
+                                      alignment: .any) {
+            if let result = session.raycast(raycast).first {
+                return SCNVector3(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
+            }
+        }
+        return nil
+    }
+
+}
+
+// MARK: - ARPlaneAnchor Extensions
 extension ARPlaneAnchor {
     
     @discardableResult
@@ -69,6 +88,7 @@ extension ARPlaneAnchor {
 
 }
 
+// MARK: - ARCamera.TrackingState Extensions
 extension ARCamera.TrackingState {
 
     public var description: String {
