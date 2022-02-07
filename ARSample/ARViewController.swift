@@ -15,7 +15,7 @@ class ARViewController: UIViewController {
     @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var selectButton: UIButton!
     
-    var selectedObject: ObjectNode?
+    var selectedObject: ARObjectNode?
     var swipeStartObjectPosition: SCNVector3?
     var swipeStartPosition: SCNVector3?
     

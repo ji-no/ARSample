@@ -21,7 +21,7 @@
 		3BD381F627AE772E008DDEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BD381F427AE772E008DDEA2 /* LaunchScreen.storyboard */; };
 		3BD381FE27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381FD27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift */; };
 		3BD3820027AEA0DD008DDEA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */; };
-		3BD3820227AEA276008DDEA2 /* ObjectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3820127AEA276008DDEA2 /* ObjectNode.swift */; };
+		3BD3820227AEA276008DDEA2 /* ARObjectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3820127AEA276008DDEA2 /* ARObjectNode.swift */; };
 		3BD3820527AEA461008DDEA2 /* AirForce.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3BD3820427AEA461008DDEA2 /* AirForce.usdz */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +42,7 @@
 		3BD381F727AE772E008DDEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BD381FD27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+ARSCNView.swift"; sourceTree = "<group>"; };
 		3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		3BD3820127AEA276008DDEA2 /* ObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNode.swift; sourceTree = "<group>"; };
+		3BD3820127AEA276008DDEA2 /* ARObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARObjectNode.swift; sourceTree = "<group>"; };
 		3BD3820427AEA461008DDEA2 /* AirForce.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = AirForce.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,7 +81,7 @@
 				3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */,
 				3BD381ED27AE772D008DDEA2 /* ARViewController.swift */,
 				3BD381FD27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift */,
-				3BD3820127AEA276008DDEA2 /* ObjectNode.swift */,
+				3BD3820127AEA276008DDEA2 /* ARObjectNode.swift */,
 				3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */,
 				3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */,
 				3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */,
@@ -185,7 +185,7 @@
 				3B0088D627B012F2000C4ED8 /* SelectObjectViewController.swift in Sources */,
 				3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */,
 				3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */,
-				3BD3820227AEA276008DDEA2 /* ObjectNode.swift in Sources */,
+				3BD3820227AEA276008DDEA2 /* ARObjectNode.swift in Sources */,
 				3B0088D827B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift in Sources */,
 				3B0088D427B006DB000C4ED8 /* SceneKitUtils.swift in Sources */,
 				3BD381EC27AE772D008DDEA2 /* SceneDelegate.swift in Sources */,

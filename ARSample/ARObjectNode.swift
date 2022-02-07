@@ -1,5 +1,5 @@
 //
-//  ObjectNode.swift
+//  ARObjectNode.swift
 //  ARSample
 //  
 //  Created by ji-no on R 4/02/05
@@ -8,7 +8,7 @@
 
 import SceneKit
 
-class ObjectNode: SCNNode {
+class ARObjectNode: SCNNode {
 
     // https://developer.apple.com/jp/augmented-reality/quick-look/
     enum ObjectType: String {
@@ -150,14 +150,14 @@ extension SCNNode {
         }
     }
     
-    func asObjectNode() -> ObjectNode? {
-        if let objectNode = self as? ObjectNode {
+    func asObjectNode() -> ARObjectNode? {
+        if let objectNode = self as? ARObjectNode {
             return objectNode
         }
         
         var parent = self.parent
         while parent != nil {
-            if let objectNode = parent as? ObjectNode {
+            if let objectNode = parent as? ARObjectNode {
                 return objectNode
             }
             parent = parent?.parent

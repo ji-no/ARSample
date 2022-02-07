@@ -19,11 +19,11 @@ extension ARViewController {
         setUpGesture()
     }
     
-    func spawn(_ type: ObjectNode.ObjectType) {
+    func spawn(_ type: ARObjectNode.ObjectType) {
         let location = CGPoint(x: sceneView.frame.width / 2, y: sceneView.frame.height / 2)
 
         if let position = sceneView.realWorldVector(for: location) {
-            let objectNode = ObjectNode(type: type, position: position)
+            let objectNode = ARObjectNode(type: type, position: position)
             DispatchQueue.main.async(execute: {
                 self.sceneView.scene.rootNode.addChildNode(objectNode)
                 self.selectObject(objectNode)
@@ -39,7 +39,7 @@ extension ARViewController {
         }
     }
 
-    func selectObject(_ objectNode: ObjectNode?) {
+    func selectObject(_ objectNode: ARObjectNode?) {
         if selectedObject == objectNode {
             if selectedObject?.isSelected() == true {
                 selectedObject?.cancel()
@@ -124,7 +124,7 @@ extension ARViewController {
         sender.rotation = 0
     }
     
-    private func translateObject(_ objectNode: ObjectNode?, position: SCNVector3) {
+    private func translateObject(_ objectNode: ARObjectNode?, position: SCNVector3) {
         guard let objectNode = objectNode else { return }
         guard let swipeStartPosition = self.swipeStartPosition else { return }
         guard let swipeStartObjectPosition = self.swipeStartObjectPosition else { return }
@@ -135,7 +135,7 @@ extension ARViewController {
         objectNode.position.z = newPosition.z
     }
     
-    private func rotateObject(_ objectNode: ObjectNode?, rotation: Float) {
+    private func rotateObject(_ objectNode: ARObjectNode?, rotation: Float) {
         guard let objectNode = objectNode else { return }
 
         let currentAngles = objectNode.eulerAngles
@@ -144,7 +144,7 @@ extension ARViewController {
     }
     
 
-    private func hitObjectNode(location: CGPoint) -> ObjectNode? {
+    private func hitObjectNode(location: CGPoint) -> ARObjectNode? {
         let results = sceneView.hitTest(location, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
         return results
             .compactMap { $0.node.asObjectNode() }

@@ -11,7 +11,7 @@ import UIKit
 class SelectObjectViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var items = ObjectNode.ObjectType.all
+    var items = ARObjectNode.ObjectType.all
     
     override func viewDidLoad() {
         super.viewDidLoad()
