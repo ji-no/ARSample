@@ -17,6 +17,7 @@ extension ARViewController {
         
         runSession()
         setUpGesture()
+        setLight()
     }
     
     func spawn(_ type: ARObjectNode.ObjectType) {
@@ -79,6 +80,25 @@ extension ARViewController {
         sceneView.addGestureRecognizer(panGestureRecognizer)
         let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(onRotationScene(_:)))
         sceneView.addGestureRecognizer(rotationGestureRecognizer)
+    }
+
+    private func setLight() {
+        let light = SCNLight()
+        light.type = .directional
+        light.spotInnerAngle = 90
+        light.spotOuterAngle = 90
+        light.castsShadow = true
+        light.zNear = 0
+        light.zFar = 10
+        light.shadowMode = .deferred
+        light.forcesBackFaceCasters = true
+        light.shadowColor = UIColor.black.withAlphaComponent(0.3)
+
+        let lightNode = SCNNode()
+        lightNode.name = "directionalLight"
+        lightNode.light = light
+        lightNode.eulerAngles = SCNVector3Make(Float(-Double.pi / 2), 0, 0)
+        sceneView.scene.rootNode.addChildNode(lightNode)
     }
 
 }
@@ -179,6 +199,13 @@ extension ARViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         planeAnchor.updatePlaneGeometryNode(on: node)
+
+        if let lightEstimate = sceneView.session.currentFrame?.lightEstimate {
+            if let lightNode = sceneView.scene.rootNode.childNode(withName: "directionalLight", recursively: false) {
+                lightNode.light?.intensity = lightEstimate.ambientIntensity
+                lightNode.light?.temperature = lightEstimate.ambientColorTemperature
+            }
+        }
         
         DispatchQueue.main.async(execute: {
             self.statusLabel.text = "a node has been updated."
