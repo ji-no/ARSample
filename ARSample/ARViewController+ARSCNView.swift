@@ -42,11 +42,7 @@ extension ARViewController {
 
     func selectObject(_ objectNode: ARObjectNode?) {
         if selectedObject == objectNode {
-            if selectedObject?.isSelected() == true {
-                selectedObject?.cancel()
-            } else {
-                selectedObject?.select()
-            }
+            selectedObject?.select()
         } else {
             selectedObject?.cancel()
             objectNode?.select()
@@ -121,7 +117,9 @@ extension ARViewController {
             }
             if let position = sceneView.realWorldVector(for: location) {
                 if let selectedObject = selectedObject {
-                    selectedObject.select()
+                    if selectedObject.isSelected() == false {
+                        selectedObject.select()
+                    }
                     swipeStartPosition = position
                     swipeStartObjectPosition = selectedObject.position
                 }
@@ -139,7 +137,9 @@ extension ARViewController {
     }
     
     @objc private func onRotationScene(_ sender: UIRotationGestureRecognizer) {
-        selectedObject?.select()
+        if selectedObject?.isSelected() == false {
+            selectedObject?.select()
+        }
         rotateObject(selectedObject, rotation: Float(sender.rotation))
         sender.rotation = 0
     }
@@ -180,6 +180,9 @@ extension ARViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         guard let frame = sceneView.session.currentFrame else {return}
         sceneView.updateLightingEnvironment(for: frame)
+        if let pointOfView = sceneView.pointOfView {
+            selectedObject?.update(cameraPosition: pointOfView.position)
+        }
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {

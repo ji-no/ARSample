@@ -31,3 +31,7 @@ func / (left: SCNVector3, right: Float) -> SCNVector3 {
 func /= (left: inout SCNVector3, right: Float) {
     left = left / right
 }
+
+func distance(_ a: SCNVector3, _ b: SCNVector3) -> Float {
+    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2))
+}

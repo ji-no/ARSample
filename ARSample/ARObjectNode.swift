@@ -9,6 +9,10 @@
 import SceneKit
 
 class ARObjectNode: SCNNode {
+    var modelRoot = SCNNode()
+    var boundingBoxNode: SCNNode?
+    var sizeText = NodeSizeText()
+    var outsideEdge = NodeOutsideEdge()
 
     // https://developer.apple.com/jp/augmented-reality/quick-look/
     enum ObjectType: String {
@@ -16,7 +20,7 @@ class ARObjectNode: SCNNode {
         case ChairSwan
         case Teapot
         case ToyBiplane
-        
+
         static var all: [ObjectType] = [
             .AirForce,
             .ChairSwan,
@@ -27,29 +31,50 @@ class ARObjectNode: SCNNode {
     
     enum State {
         case idle
-        case selected
+        case boundingBox
+        case outsideEdge
+        case edgeAndSizeLabel
     }
-    private var state: State = .idle
+    private var state: State = .idle {
+        didSet {
+            boundingBoxNode?.removeFromParentNode()
+            boundingBoxNode = nil
+            outsideEdge.hide()
+            sizeText.hide()
+
+            switch state {
+            case .idle:
+                break
+            case .boundingBox:
+                showBoundingBox()
+            case .outsideEdge:
+                outsideEdge.show()
+            case .edgeAndSizeLabel:
+                outsideEdge.show()
+                sizeText.show()
+            }
+        }
+    }
 
     init(type: ObjectType = .AirForce, position: SCNVector3) {
         super.init()
-        
+        sizeText.targetNode = modelRoot
+        outsideEdge.targetNode = modelRoot
+
         var scale = 1.0
         switch type {
         case .AirForce:
-            loadUsdz(name: type.rawValue)
             scale = 0.01
         case .ChairSwan:
-            loadUsdz(name: type.rawValue)
             scale = 0.003
         case .Teapot:
-            loadUsdz(name: type.rawValue)
             scale = 0.01
         case .ToyBiplane:
-            loadUsdz(name: type.rawValue)
             scale = 0.01
         }
-        self.scale = SCNVector3(scale, scale, scale)
+        modelRoot.loadUsdz(name: type.rawValue)
+        modelRoot.scale = SCNVector3(scale, scale, scale)
+        addChildNode(modelRoot)
         self.name = type.rawValue
         self.spawn(position: position)
     }
@@ -58,6 +83,33 @@ class ARObjectNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func createSizeText() {
+        sizeText.createSizeText()
+    }
+    
+    func update(cameraPosition: SCNVector3) {
+        sizeText.updateSizeText(cameraPosition: cameraPosition)
+        outsideEdge.updateEdge(cameraPosition: cameraPosition)
+    }
+    
+    func showBoundingBox() {
+        let box = SCNBox(
+            width: CGFloat(modelRoot.boundingBoxSize.x),
+            height: CGFloat(modelRoot.boundingBoxSize.y),
+            length: CGFloat(modelRoot.boundingBoxSize.z),
+            chamferRadius: 0
+        )
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.init(red: 0, green: 1, blue: 0, alpha: 0.5)
+        for i in 0...5 {
+            box.insertMaterial(material, at: i)
+        }
+        let boxNode = SCNNode(geometry: box)
+        boxNode.position = modelRoot.boundingBoxCenter
+        addChildNode(boxNode)
+        boundingBoxNode = boxNode
+    }
+
     private func spawn(position: SCNVector3) {
         self.position = position
         
@@ -65,23 +117,28 @@ class ARObjectNode: SCNNode {
         self.scale = SCNVector3(0, 0, 0)
         let action = SCNAction.scale(to: toScale, duration: 0.2)
         self.runAction(action, forKey: nil) { [weak self] in
-            self?.state = .selected
+            self?.state = .edgeAndSizeLabel
         }
     }
     
     func isSelected() -> Bool {
-        return state == .selected
+        return state != .idle
     }
 
     func select() {
-        guard state == .idle else { return }
-
-        state = .selected
+        switch state {
+        case .idle:
+            state = .edgeAndSizeLabel
+        case .edgeAndSizeLabel:
+            state = .outsideEdge
+        case .outsideEdge:
+            state = .boundingBox
+        case .boundingBox:
+            state = .idle
+        }
     }
     
     func cancel() {
-        guard state == .selected else { return }
-
         state = .idle
     }
     
@@ -99,13 +156,38 @@ extension SCNNode {
 
     func loadUsdz(name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "usdz") else { fatalError() }
-        let scene = try! SCNScene(url: url, options: [.checkConsistency: true])
+        let options: [SCNSceneSource.LoadingOption : Any] = [
+            .createNormalsIfAbsent: true,
+            .checkConsistency: true,
+            .flattenScene: true,
+            .strictConformance: true,
+            .convertUnitsToMeters: 1,
+            .convertToYUp: true,
+            .preserveOriginalTopology: false
+        ]
+        let scene = try! SCNScene(url: url, options: options)
         for child in scene.rootNode.childNodes {
             child.geometry?.firstMaterial?.lightingModel = .physicallyBased
             addChildNode(child)
         }
     }
     
+    var boundingBoxSize: SCNVector3 {
+        return SCNVector3(
+            x: (boundingBox.max.x - boundingBox.min.x) * scale.x,
+            y: (boundingBox.max.y - boundingBox.min.y) * scale.y,
+            z: (boundingBox.max.z - boundingBox.min.z) * scale.z
+        )
+    }
+
+    var boundingBoxCenter: SCNVector3 {
+        return SCNVector3(
+            x: (boundingBox.max.x + boundingBox.min.x) * 0.5 * scale.x,
+            y: (boundingBox.max.y + boundingBox.min.y) * 0.5 * scale.y,
+            z: (boundingBox.max.z + boundingBox.min.z) * 0.5 * scale.z
+        )
+    }
+
     func asObjectNode() -> ARObjectNode? {
         if let objectNode = self as? ARObjectNode {
             return objectNode

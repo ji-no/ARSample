@@ -13,6 +13,8 @@
 		3B0088DC27B01698000C4ED8 /* ChairSwan.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088D927B01698000C4ED8 /* ChairSwan.usdz */; };
 		3B0088DD27B01698000C4ED8 /* Teapot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088DA27B01698000C4ED8 /* Teapot.usdz */; };
 		3B0088DE27B01698000C4ED8 /* ToyBiplane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */; };
+		3B09F9A127CE593E00455413 /* NodeOutsideEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */; };
+		3B09F9A227CE593E00455413 /* NodeSizeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09F9A027CE593E00455413 /* NodeSizeText.swift */; };
 		3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381E927AE772D008DDEA2 /* AppDelegate.swift */; };
 		3BD381EC27AE772D008DDEA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */; };
 		3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381ED27AE772D008DDEA2 /* ARViewController.swift */; };
@@ -32,6 +34,8 @@
 		3B0088D927B01698000C4ED8 /* ChairSwan.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChairSwan.usdz; sourceTree = "<group>"; };
 		3B0088DA27B01698000C4ED8 /* Teapot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Teapot.usdz; sourceTree = "<group>"; };
 		3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ToyBiplane.usdz; sourceTree = "<group>"; };
+		3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeOutsideEdge.swift; sourceTree = "<group>"; };
+		3B09F9A027CE593E00455413 /* NodeSizeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeSizeText.swift; sourceTree = "<group>"; };
 		3BD381E627AE772D008DDEA2 /* ARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD381E927AE772D008DDEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 				3BD381ED27AE772D008DDEA2 /* ARViewController.swift */,
 				3BD381FD27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift */,
 				3BD3820127AEA276008DDEA2 /* ARObjectNode.swift */,
+				3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */,
+				3B09F9A027CE593E00455413 /* NodeSizeText.swift */,
 				3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */,
 				3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */,
 				3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */,
@@ -180,10 +186,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B09F9A127CE593E00455413 /* NodeOutsideEdge.swift in Sources */,
 				3BD3820027AEA0DD008DDEA2 /* Extensions.swift in Sources */,
 				3BD381FE27AE9ED4008DDEA2 /* ARViewController+ARSCNView.swift in Sources */,
 				3B0088D627B012F2000C4ED8 /* SelectObjectViewController.swift in Sources */,
 				3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */,
+				3B09F9A227CE593E00455413 /* NodeSizeText.swift in Sources */,
 				3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */,
 				3BD3820227AEA276008DDEA2 /* ARObjectNode.swift in Sources */,
 				3B0088D827B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift in Sources */,
@@ -337,7 +345,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KN8A5629Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -350,7 +358,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.ARSample;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.jino.jpn.test-20220128";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -365,7 +373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KN8A5629Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -378,7 +386,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.ARSample;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.jino.jpn.test-20220128";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
