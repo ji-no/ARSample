@@ -24,16 +24,10 @@ extension ARViewController {
     }
     
     func spawn(_ type: ARObjectNode.ObjectType) {
-        let location = CGPoint(x: sceneView.frame.width / 2, y: sceneView.frame.height / 2)
-
-        if let position = sceneView.realWorldVector(for: location) {
-            let objectNode = ARObjectNode(type: type, position: position)
-            DispatchQueue.main.async(execute: {
-                self.sceneView.scene.rootNode.addChildNode(objectNode)
-                self.selectObject(objectNode)
-            })
-        }
-
+        let position = cursor.position
+        let objectNode = ARObjectNode(type: type, position: position)
+        self.sceneView.scene.rootNode.addChildNode(objectNode)
+        self.selectObject(objectNode)
     }
 
     func removeObject() {
@@ -58,10 +52,15 @@ extension ARViewController {
             removeButton.isHidden = false
             selectButton.isHidden = false
             selectButton.setTitle(selectedObject.isSelected() ? "deselect" : "select", for: .normal)
+
+            cursor.position = selectedObject.position
+            cursor.select(size: selectedObject.modelRoot.boundingBoxSize)
+
         } else {
             objectNameLabel.isHidden = true
             removeButton.isHidden = true
             selectButton.isHidden = true
+            cursor.unselect()
         }
     }
 
@@ -156,6 +155,9 @@ extension ARViewController {
 
         objectNode.position.x = newPosition.x
         objectNode.position.z = newPosition.z
+        
+        cursor.position.x = newPosition.x
+        cursor.position.z = newPosition.z
     }
     
     private func rotateObject(_ objectNode: ARObjectNode?, rotation: Float) {
@@ -187,11 +189,15 @@ extension ARViewController: ARSCNViewDelegate {
             selectedObject?.update(cameraPosition: pointOfView.position)
         }
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        if selectedObject == nil {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
 
-            if let worldTransform = self.sceneView.realWorldTransform(for: self.screenCenter) {
-                self.cursor.simdTransform = worldTransform
+                if let worldTransform = self.sceneView.realWorldTransform(for: self.screenCenter) {
+                    if self.selectedObject == nil {
+                        self.cursor.simdTransform = worldTransform
+                    }
+                }
             }
         }
     }

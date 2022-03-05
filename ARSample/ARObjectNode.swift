@@ -9,7 +9,7 @@
 import SceneKit
 
 class ARObjectNode: SCNNode {
-    var modelRoot = SCNNode()
+    private(set) var modelRoot = SCNNode()
     var boundingBoxNode: SCNNode?
     var sizeText = NodeSizeText()
     var outsideEdge = NodeOutsideEdge()
