@@ -15,6 +15,7 @@
 		3B0088DE27B01698000C4ED8 /* ToyBiplane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */; };
 		3B09F9A127CE593E00455413 /* NodeOutsideEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */; };
 		3B09F9A227CE593E00455413 /* NodeSizeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09F9A027CE593E00455413 /* NodeSizeText.swift */; };
+		3B4E0BCB27D390F300A1D983 /* CursorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E0BCA27D390F300A1D983 /* CursorNode.swift */; };
 		3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381E927AE772D008DDEA2 /* AppDelegate.swift */; };
 		3BD381EC27AE772D008DDEA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */; };
 		3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD381ED27AE772D008DDEA2 /* ARViewController.swift */; };
@@ -36,6 +37,7 @@
 		3B0088DB27B01698000C4ED8 /* ToyBiplane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ToyBiplane.usdz; sourceTree = "<group>"; };
 		3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeOutsideEdge.swift; sourceTree = "<group>"; };
 		3B09F9A027CE593E00455413 /* NodeSizeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeSizeText.swift; sourceTree = "<group>"; };
+		3B4E0BCA27D390F300A1D983 /* CursorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorNode.swift; sourceTree = "<group>"; };
 		3BD381E627AE772D008DDEA2 /* ARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD381E927AE772D008DDEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BD381EB27AE772D008DDEA2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				3BD3820127AEA276008DDEA2 /* ARObjectNode.swift */,
 				3B09F99F27CE593E00455413 /* NodeOutsideEdge.swift */,
 				3B09F9A027CE593E00455413 /* NodeSizeText.swift */,
+				3B4E0BCA27D390F300A1D983 /* CursorNode.swift */,
 				3BD381FF27AEA0DD008DDEA2 /* Extensions.swift */,
 				3B0088D327B006DB000C4ED8 /* SceneKitUtils.swift */,
 				3B0088D527B012F2000C4ED8 /* SelectObjectViewController.swift */,
@@ -193,6 +196,7 @@
 				3BD381EE27AE772D008DDEA2 /* ARViewController.swift in Sources */,
 				3B09F9A227CE593E00455413 /* NodeSizeText.swift in Sources */,
 				3BD381EA27AE772D008DDEA2 /* AppDelegate.swift in Sources */,
+				3B4E0BCB27D390F300A1D983 /* CursorNode.swift in Sources */,
 				3BD3820227AEA276008DDEA2 /* ARObjectNode.swift in Sources */,
 				3B0088D827B014C0000C4ED8 /* SelectObjectCollectionViewCell.swift in Sources */,
 				3B0088D427B006DB000C4ED8 /* SceneKitUtils.swift in Sources */,

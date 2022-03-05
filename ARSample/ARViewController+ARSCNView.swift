@@ -18,6 +18,9 @@ extension ARViewController {
         runSession()
         setUpGesture()
         setLight()
+        
+        cursor.isHidden = true
+        sceneView.scene.rootNode.addChildNode(cursor)
     }
     
     func spawn(_ type: ARObjectNode.ObjectType) {
@@ -183,6 +186,14 @@ extension ARViewController: ARSCNViewDelegate {
         if let pointOfView = sceneView.pointOfView {
             selectedObject?.update(cameraPosition: pointOfView.position)
         }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            if let worldTransform = self.sceneView.realWorldTransform(for: self.screenCenter) {
+                self.cursor.simdTransform = worldTransform
+            }
+        }
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
@@ -196,6 +207,7 @@ extension ARViewController: ARSCNViewDelegate {
         
         DispatchQueue.main.async(execute: {
             self.statusLabel.text = "a new node has been mapped."
+            self.cursor.isHidden = false
         })
     }
     

@@ -32,7 +32,7 @@ extension SCNView {
 
 // MARK: - ARSCNView Extensions
 extension ARSCNView {
-    
+
     func realWorldVector(for location: CGPoint) -> SCNVector3? {
         if let raycast = raycastQuery(from: location,
                                       allowing: .estimatedPlane,
@@ -42,6 +42,14 @@ extension ARSCNView {
             }
         }
         return nil
+    }
+
+    func realWorldTransform(for location: CGPoint) -> simd_float4x4? {
+        guard let raycast = raycastQuery(from: location, allowing: .existingPlaneGeometry, alignment: .any) else { return nil }
+        guard let result = session.raycast(raycast).first(where: { $0.target == .existingPlaneGeometry }) else { return nil }
+        guard result.anchor is ARPlaneAnchor else { return nil }
+
+        return result.worldTransform
     }
 
 }

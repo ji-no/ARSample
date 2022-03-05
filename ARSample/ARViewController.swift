@@ -18,6 +18,10 @@ class ARViewController: UIViewController {
     var selectedObject: ARObjectNode?
     var swipeStartObjectPosition: SCNVector3?
     var swipeStartPosition: SCNVector3?
+    var cursor = CursorNode()
+    lazy var screenCenter: CGPoint = {
+        return CGPoint(x: sceneView.frame.width / 2, y: sceneView.frame.height / 2)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
