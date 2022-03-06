@@ -33,7 +33,7 @@ class ARObjectNode: SCNNode {
         case idle
         case boundingBox
         case outsideEdge
-        case edgeAndSizeLabel
+        case sizeLabel
     }
     private var state: State = .idle {
         didSet {
@@ -49,8 +49,7 @@ class ARObjectNode: SCNNode {
                 showBoundingBox()
             case .outsideEdge:
                 outsideEdge.show()
-            case .edgeAndSizeLabel:
-                outsideEdge.show()
+            case .sizeLabel:
                 sizeText.show()
             }
         }
@@ -83,10 +82,6 @@ class ARObjectNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createSizeText() {
-        sizeText.createSizeText()
-    }
-    
     func update(cameraPosition: SCNVector3) {
         sizeText.updateSizeText(cameraPosition: cameraPosition)
         outsideEdge.updateEdge(cameraPosition: cameraPosition)
@@ -117,7 +112,7 @@ class ARObjectNode: SCNNode {
         self.scale = SCNVector3(0, 0, 0)
         let action = SCNAction.scale(to: toScale, duration: 0.2)
         self.runAction(action, forKey: nil) { [weak self] in
-            self?.state = .edgeAndSizeLabel
+            self?.state = .sizeLabel
         }
     }
     
@@ -128,8 +123,8 @@ class ARObjectNode: SCNNode {
     func select() {
         switch state {
         case .idle:
-            state = .edgeAndSizeLabel
-        case .edgeAndSizeLabel:
+            state = .sizeLabel
+        case .sizeLabel:
             state = .outsideEdge
         case .outsideEdge:
             state = .boundingBox
